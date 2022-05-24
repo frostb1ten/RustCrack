@@ -20,6 +20,8 @@ fn main() {
                     sha256(input.to_string(), words)
                 } else if enc == "base64" {
                     base64(input.to_string(), words)
+                } else if enc == "md2" {
+                    md2(input.to_string(), words)
                 } else if enc == "unsure" {
                     unsure(input.to_string(), words)
                 } else {
@@ -34,6 +36,18 @@ fn unsure(input: String, word: String) {
     md5(input.to_string(), word.clone());
     sha256(input.to_string(), word.clone());
     base64(input.to_string(), word);
+}
+
+fn md2(input: String, word: String) {
+    use md2::{Md2, Digest};
+    let mut hasher = Md2::new();
+    hasher.update(word.clone());
+    let digest = hasher.finalize();
+    let digest: String = format!("{:x}", digest);
+    println!("testing: {:?}", digest.to_string());
+    if input == digest.to_string() {
+        finished(input, word);
+    }
 }
 
 fn md5(input: String, word: String) {
