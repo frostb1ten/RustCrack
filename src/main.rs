@@ -22,6 +22,10 @@ fn main() {
                     base64(input.to_string(), words)
                 } else if enc == "md2" {
                     md2(input.to_string(), words)
+                } else if enc == "bcrypt" {
+                    bcrypt(input.to_string(), words)
+                } else if enc == "rot13" {
+                    rot13(input.to_string(), words)
                 } else if enc == "unsure" {
                     unsure(input.to_string(), words)
                 } else {
@@ -33,8 +37,11 @@ fn main() {
 }
 
 fn unsure(input: String, word: String) {
+    md2(input.to_string(), word.clone());
     md5(input.to_string(), word.clone());
     sha256(input.to_string(), word.clone());
+    bcrypt(input.to_string(), word.clone());
+    rot13(input.to_string(), word.clone());
     base64(input.to_string(), word);
 }
 
@@ -73,6 +80,25 @@ fn sha256(input: String, word: String) {
     let digestsha = digest(word.clone());
     println!("testing: {}", digestsha);
     if input == digestsha {
+        finished(input, word);
+    }
+}
+
+fn bcrypt(input: String, word: String) {
+    extern crate bcrypt;
+    use bcrypt::verify;
+    let valid = verify(word.clone(), &input);
+    println!("testing: {}", word);
+    if *valid.as_ref().unwrap() {
+        finished(input, word);
+    }
+}
+
+fn rot13(input: String, word: String) {
+    extern crate rot13;
+    let digest = rot13::rot13(&word.clone());
+    println!("testing: {}", digest);
+    if input == digest {
         finished(input, word);
     }
 }
