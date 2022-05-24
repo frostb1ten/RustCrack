@@ -91,8 +91,10 @@ fn bcrypt(input: String, word: String) {
     use bcrypt::verify;
     let valid = verify(word.clone(), &input);
     println!("testing: {}", word);
-    if *valid.as_ref().unwrap() {
-        finished(input, word);
+    if input.contains("$") {
+        if *valid.as_ref().unwrap() {
+            finished(input, word);
+        }
     }
 }
 
