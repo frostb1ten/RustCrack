@@ -26,6 +26,8 @@ fn main() {
                     bcrypt(input.to_string(), words)
                 } else if enc == "rot13" {
                     rot13(input.to_string(), words)
+                } else if enc == "rot26" {
+                    rot26(input.to_string(), words)
                 } else if enc == "unsure" {
                     unsure(input.to_string(), words)
                 } else {
@@ -101,6 +103,10 @@ fn rot13(input: String, word: String) {
     if input == digest {
         finished(input, word);
     }
+}
+
+fn rot26(input: String, word: String) {
+    println!("{} is {}", input, word);
 }
 
 fn finished(input: String, word: String) {
