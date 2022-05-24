@@ -106,7 +106,7 @@ fn rot13(input: String, word: String) {
 }
 
 fn rot26(input: String, word: String) {
-    println!("{} is {}", input, word);
+    finished(input.clone(), input);
 }
 
 fn finished(input: String, word: String) {
