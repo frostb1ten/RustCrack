@@ -1,5 +1,5 @@
 # RustCrack
-Needed a cracking tool, so I made lightweight one.
+Needed a cracking tool, so I made lightweight one. So far I added md5, sha256, base64 and unsure if unsure.
 
 Usage:
 ```
